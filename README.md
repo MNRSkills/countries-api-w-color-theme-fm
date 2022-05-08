@@ -4,7 +4,6 @@ Thanks for checking out this front-end coding challenge.
 
 ## Overview
 
-
 ### Links
 
 - Solution URL: [Add solution URL here](https://your-solution-url.com)
@@ -13,3 +12,4 @@ Thanks for checking out this front-end coding challenge.
 ## My process
 
 - Install all the necessary tools, create-react-app, axios, and tailwindcss.
+- I have a layout component and children as Navbar and Footer and all other children thank you.
