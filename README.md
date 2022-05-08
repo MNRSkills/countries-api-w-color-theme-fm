@@ -12,4 +12,4 @@ Thanks for checking out this front-end coding challenge.
 
 ## My process
 
--- Install all the necessary tools, create-react-app, axios, and tailwindcss.
+- Install all the necessary tools, create-react-app, axios, and tailwindcss.
