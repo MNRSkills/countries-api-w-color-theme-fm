@@ -1,7 +1,12 @@
 import React from "react";
 
 const Countries = (props) => {
-  return <div>Hi Momm again</div>;
+  // console.log(props.country.name, "THIS IS PROPS FROM COUNTRY");
+  return (
+    <div>
+      <div>Working on this component</div>
+    </div>
+  );
 };
 
 export default Countries;

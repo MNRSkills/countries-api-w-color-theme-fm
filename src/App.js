@@ -8,21 +8,26 @@ class App extends Component {
     this.state = {
       countries: [],
     };
+
+    this.eachCountry = this.eachCountry.bind(this);
   }
 
   async callAPI() {
     await axios
-      .get("https://restcountries.com/v3.1/all")
+      .get("https://restcountries.com/v2/all")
       .then((res) =>
-        console.log(
-          "THIS SI STATE",
-          res.data.map((country) => {
-            console.log("COUNTRY", country);
-          })
-        )
+        this.setState({
+          countries: res.data,
+        })
       )
-      // .then((res) => this.setState({ countries: res.data })) //SEND TO STATE THEN TO A COMPONENT OR VISE VERSA
+      //SEND TO STATE THEN TO A COMPONENT OR VISE VERSA
       .catch((error) => console.log("kaya meany", error));
+  }
+
+  eachCountry() {
+    return this.state.countries.map((country, index) => {
+      return <Countries country={country} key={index} />;
+    });
   }
 
   componentDidMount() {
@@ -32,7 +37,7 @@ class App extends Component {
     return (
       <div>
         <h1 className='text-3xl font-bold underline'>Hello world!</h1>
-        <Countries />
+        {this.eachCountry()}
       </div>
     );
   }
