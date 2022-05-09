@@ -3,7 +3,7 @@ import Nav from "./nav";
 
 const Layout = (props) => {
   return (
-    <div>
+    <div className='layout bg-red-400'>
       <Nav />
       {props.children}
     </div>
