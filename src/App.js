@@ -9,17 +9,33 @@ class App extends Component {
       countries: [],
     };
 
-    this.eachCountry = this.eachCountry.bind(this);
+    this.handleRegion = this.handleRegion.bind(this);
   }
 
-  async callAPI() {
+  handleRegion(region) {
+    if (region === "World") {
+      this.callAPI();
+    } else {
+      this.callAPI(region);
+    }
+  }
+
+  async callAPI(region = null) {
     await axios
       .get("https://restcountries.com/v2/all")
-      .then((res) =>
-        this.setState({
-          countries: res.data,
-        })
-      )
+      .then((res) => {
+        if (region) {
+          this.setState({
+            countries: res.data.filter((regions) => {
+              return regions.region === region;
+            }),
+          });
+        } else {
+          this.setState({
+            countries: res.data,
+          });
+        }
+      })
       //SEND TO STATE THEN TO A COMPONENT OR VISE VERSA
       .catch((error) => console.log("kaya meany", error));
   }
@@ -35,10 +51,20 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="container">
+      <div className='container'>
         <h1 className='text-3xl font-bold underline'>Hello world!</h1>
+        <div className='relative border shadow-xl'>
+          <ul>
+            <li onClick={() => this.handleRegion("World")}>Worldwide</li>
+            <li onClick={() => this.handleRegion("Asia")}>Asia</li>
+            <li onClick={() => this.handleRegion("Africa")}>Africa</li>
+            <li onClick={() => this.handleRegion("Europe")}>Europe</li>
+            <li onClick={() => this.handleRegion("Oceania")}>Oceania</li>
+            <li onClick={() => this.handleRegion("Americas")}>Americas</li>
+            <li onClick={() => this.handleRegion("Polar")}>Polar</li>
+          </ul>
+        </div>
         {this.eachCountry()}
-        {/* <Countries/> */}
       </div>
     );
   }

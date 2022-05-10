@@ -1,10 +1,10 @@
 import React from "react";
 
 const Countries = (props) => {
-  console.log(props.country, "THIS IS PROPS FROM COUNTRY");
+  // console.log(props.country, "THIS IS PROPS FROM COUNTRY");
 
   const { name, population, region, capital, flag } = props.country;
-  console.log(name);
+
   return (
     <div className='p-10'>
       <div className='grid grid-rows-2 shadow-xl border rounde-xl'>
