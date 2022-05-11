@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./App.css";
 import Countries from "./Component/countries";
+import SearchBar from "./Component/searchBar";
 class App extends Component {
   constructor() {
     super();
@@ -10,6 +10,7 @@ class App extends Component {
     };
 
     this.handleRegion = this.handleRegion.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleRegion(region) {
@@ -18,6 +19,12 @@ class App extends Component {
     } else {
       this.callAPI(region);
     }
+  }
+
+  handleSubmit(countryName) {
+    console.log(countryName);
+
+    countryName.preventDefault();
   }
 
   async callAPI(region = null) {
@@ -53,14 +60,17 @@ class App extends Component {
     return (
       <div className='container'>
         <h1 className='text-3xl font-bold underline'>Hello world!</h1>
+        <SearchBar
+        // handleSubmit={(countryName) => this.handleSubmit(countryName)}
+        />
         <div className='relative border shadow-xl'>
           <ul>
             <li onClick={() => this.handleRegion("World")}>Worldwide</li>
-            <li onClick={() => this.handleRegion("Asia")}>Asia</li>
             <li onClick={() => this.handleRegion("Africa")}>Africa</li>
+            <li onClick={() => this.handleRegion("Americas")}>Americas</li>
+            <li onClick={() => this.handleRegion("Asia")}>Asia</li>
             <li onClick={() => this.handleRegion("Europe")}>Europe</li>
             <li onClick={() => this.handleRegion("Oceania")}>Oceania</li>
-            <li onClick={() => this.handleRegion("Americas")}>Americas</li>
             <li onClick={() => this.handleRegion("Polar")}>Polar</li>
           </ul>
         </div>
