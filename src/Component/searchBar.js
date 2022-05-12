@@ -1,14 +1,15 @@
 import React from "react";
 
 const SearchBar = (props) => {
-  const searchSubmit = (e) => {
-    console.log("THIS IS SEARCH", e);
-    // return props.handleSubmit()
-  };
   return (
     <div>
-      <form onSubmit={searchSubmit}>
-        <input type='text' placeholder='Search for a country..' />
+      <form className='p-2 w-full text-gray-600' onSubmit={props.handleSubmit}>
+        <input
+          type='text'
+          placeholder='Search for a country..'
+          name='name'
+          onChange={props.handleChange}
+        />
         <button type='submit' className='p-10'>
           Submit
         </button>

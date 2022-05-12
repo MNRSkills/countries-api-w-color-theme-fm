@@ -7,10 +7,12 @@ class App extends Component {
     super();
     this.state = {
       countries: [],
+      country: "",
     };
 
     this.handleRegion = this.handleRegion.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSearchSubmit.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
   handleRegion(region) {
@@ -21,8 +23,14 @@ class App extends Component {
     }
   }
 
-  handleSubmit(countryName) {
-    console.log(countryName);
+  handleSearchChange(e) {
+    this.setState({
+      country: e.target.value,
+    });
+  }
+
+  handleSearchSubmit(countryName) {
+    console.log("I AM LOOKING FOR CCNAME", countryName);
 
     countryName.preventDefault();
   }
@@ -61,7 +69,8 @@ class App extends Component {
       <div className='container'>
         <h1 className='text-3xl font-bold underline'>Hello world!</h1>
         <SearchBar
-        // handleSubmit={(countryName) => this.handleSubmit(countryName)}
+          handleSubmit={(countryName) => this.handleSearchSubmit(countryName)}
+          handleChange={(e) => this.handleSearchChange(e)}
         />
         <div className='relative border shadow-xl'>
           <ul>
