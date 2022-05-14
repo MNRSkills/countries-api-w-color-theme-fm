@@ -1,18 +1,47 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Countries from "./Component/countries";
+import CountryDetail from "./Component/countryDetail";
 import SearchBar from "./Component/searchBar";
 class App extends Component {
   constructor() {
     super();
     this.state = {
       countries: [],
-      country: "",
+      countryDetail: [],
+      countryName: "",
+      errorMsg: "",
     };
 
     this.handleRegion = this.handleRegion.bind(this);
-    this.handleSubmit = this.handleSearchSubmit.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
+  }
+
+  handleSearchChange(e) {
+    console.log("MADE MAN", e.target.value);
+    this.setState({
+      countryName: e.target.value,
+    });
+  }
+
+  handleSearchSubmit(e) {
+    axios
+      .get(`https://restcountries.com/v2/name/${this.state.countryName}`)
+      .then((res) =>
+        res.data.map((detail) => {
+          this.setState({
+            countryDetail: detail,
+          });
+        })
+      )
+      .catch((error) =>
+        this.setState({
+          errorMsg: error.response.data.message,
+        })
+      );
+
+    e.preventDefault();
   }
 
   handleRegion(region) {
@@ -21,18 +50,6 @@ class App extends Component {
     } else {
       this.callAPI(region);
     }
-  }
-
-  handleSearchChange(e) {
-    this.setState({
-      country: e.target.value,
-    });
-  }
-
-  handleSearchSubmit(countryName) {
-    console.log("I AM LOOKING FOR CCNAME", countryName);
-
-    countryName.preventDefault();
   }
 
   async callAPI(region = null) {
@@ -69,8 +86,8 @@ class App extends Component {
       <div className='container'>
         <h1 className='text-3xl font-bold underline'>Hello world!</h1>
         <SearchBar
-          handleSubmit={(countryName) => this.handleSearchSubmit(countryName)}
-          handleChange={(e) => this.handleSearchChange(e)}
+          handleChange={(countryName) => this.handleSearchChange(countryName)}
+          handleSubmit={(e) => this.handleSearchSubmit(e)}
         />
         <div className='relative border shadow-xl'>
           <ul>
@@ -83,7 +100,10 @@ class App extends Component {
             <li onClick={() => this.handleRegion("Polar")}>Polar</li>
           </ul>
         </div>
-        {this.eachCountry()}
+        <div>
+          {this.eachCountry()}
+          <CountryDetail countryDetail={this.state.countryDetail} />
+        </div>
       </div>
     );
   }
