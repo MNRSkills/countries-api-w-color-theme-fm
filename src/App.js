@@ -11,12 +11,25 @@ class App extends Component {
       countryDetail: [],
       countryName: "",
       errorMsg: "",
+      searchBtn: true,
     };
 
     this.handleRegion = this.handleRegion.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
   }
+
+  // HELPER
+  searchBtn(e) {
+    // console.log("wHAT IS THIS", e);
+    this.setState({
+      searchBtn: false,
+    });
+  }
+
+  /// ...
+
+  /// MY HANDLERS WITH CARE
 
   handleSearchChange(e) {
     console.log("MADE MAN", e.target.value);
@@ -52,6 +65,10 @@ class App extends Component {
     }
   }
 
+  /// .....
+
+  //INITIAL CALL TO THE API REQUESTING ALL
+
   async callAPI(region = null) {
     await axios
       .get("https://restcountries.com/v2/all")
@@ -68,7 +85,6 @@ class App extends Component {
           });
         }
       })
-      //SEND TO STATE THEN TO A COMPONENT OR VISE VERSA
       .catch((error) => console.log("kaya meany", error));
   }
 
@@ -77,6 +93,10 @@ class App extends Component {
       return <Countries country={country} key={index} />;
     });
   }
+
+  /// .....
+
+  /// MOUNTED //
 
   componentDidMount() {
     this.callAPI();
@@ -88,9 +108,11 @@ class App extends Component {
         <SearchBar
           handleChange={(countryName) => this.handleSearchChange(countryName)}
           handleSubmit={(e) => this.handleSearchSubmit(e)}
+          searchBtn={(e) => this.searchBtn(e)}
         />
-        <div className='relative border shadow-xl'>
-          <ul>
+        <div className='relative border shadow-xl bg-gray-50 w-1/2 p-4'>
+          <h1 className='text-sm'>Filter by Region</h1>
+          <ul className='absolute top-20 left-0 bg-gray-50 w-full mt-2 invisible md:visible'>
             <li onClick={() => this.handleRegion("World")}>Worldwide</li>
             <li onClick={() => this.handleRegion("Africa")}>Africa</li>
             <li onClick={() => this.handleRegion("Americas")}>Americas</li>
@@ -101,8 +123,11 @@ class App extends Component {
           </ul>
         </div>
         <div>
-          {this.eachCountry()}
-          <CountryDetail countryDetail={this.state.countryDetail} />
+          {this.state.searchBtn !== true ? (
+            <CountryDetail countryDetail={this.state.countryDetail} />
+          ) : (
+            this.eachCountry()
+          )}
         </div>
       </div>
     );
