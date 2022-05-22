@@ -6,11 +6,12 @@ import Layout from "./Component/Layout/layout";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
-    <Layout>
-      <App />
-    </Layout>
+      <Layout>
+        <App />
+      </Layout>
   </React.StrictMode>
 );
 

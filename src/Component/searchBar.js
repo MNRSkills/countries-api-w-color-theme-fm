@@ -3,7 +3,7 @@ import React from "react";
 const SearchBar = (props) => {
   return (
     <div className=''>
-      <form className='p-4 w-full text-gray-600' onSubmit={props.handleSubmit}>
+      <div className='p-4 w-full text-gray-600'>
         <input
           type='text'
           placeholder='Search for a country..'
@@ -11,10 +11,10 @@ const SearchBar = (props) => {
           onChange={props.handleChange}
           className='rounded w-full p-2'
         />
-        <button type='submit' className='p-10' onClick={props.searchBtn}>
+        {/* <button type='submit' className='p-10' onClick={props.searchBtn}>
           Submit
-        </button>
-      </form>
+        </button> */}
+      </div>
     </div>
   );
 };

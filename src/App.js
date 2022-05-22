@@ -101,6 +101,11 @@ class App extends Component {
   componentDidMount() {
     this.callAPI();
   }
+
+
+  componentDidUpdate() {
+    // this.handleSearchSubmit();
+  }
   render() {
     return (
       <div className='container'>
