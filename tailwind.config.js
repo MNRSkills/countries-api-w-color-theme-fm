@@ -11,7 +11,12 @@ module.exports = {
         "2xl": "1124px",
       },
     },
-    extend: {},
+    extend: {
+      colors: {
+        night: "hsl(207, 26%, 17%)",
+        wordsNight: "hsl(209, 23%, 22%)",
+      },
+    },
   },
   plugins: [],
 };

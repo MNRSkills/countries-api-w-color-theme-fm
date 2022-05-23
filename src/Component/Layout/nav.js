@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Nav = (props) => {
   return (
-    <div className='bg-gray-200 w-full shadow-lg py-10 px-4 dark:bg-gray-900'>
-      <div className='flex justify-between items-center gap-6 dark:text-gray-300'>
+    <div className='bg-gray-200 w-full shadow-lg py-10 px-4 dark:bg-wordsNight'>
+      <div className='flex justify-between items-center gap-6 dark:text-white'>
         <h1 className='font-bold text-sm'>Where in the world?</h1>
         <div
           className='transparent flex items-center'

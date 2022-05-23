@@ -22,11 +22,8 @@ class Layout extends Component {
   render() {
     return (
       <div className={this.state.themeToggle ? "dark" : " "}>
-        <Nav
-          themeHandler={() => this.handleTheme()}
-          className='dark:bg-gray-800'
-        />
-        <div className='dark:bg-gray-800'>{this.props.children}</div>
+        <Nav themeHandler={() => this.handleTheme()} />
+        <div className='dark:bg-night'>{this.props.children}</div>
       </div>
     );
   }

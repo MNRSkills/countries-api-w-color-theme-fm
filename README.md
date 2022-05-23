@@ -24,3 +24,5 @@ let switch = action ? true : false
 ```
 
 Pretty convenient. You can find my use case in the App file lines 126 - 130
+
+- Also learned tailwindcss convenient way of added darkMode. Toggling in the Layout component, would like to here from you if there is a better approach.
