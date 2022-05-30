@@ -17,6 +17,9 @@ module.exports = {
         wordsNight: "hsl(209, 23%, 22%)",
       },
     },
+    fontFamily: {
+      display: ["Outfit", "sans-serif"],
+    },
   },
   plugins: [],
 };

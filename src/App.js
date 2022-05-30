@@ -3,58 +3,52 @@ import axios from "axios";
 import Countries from "./Component/countries";
 import CountryDetail from "./Component/countryDetail";
 import SearchBar from "./Component/searchBar";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class App extends Component {
   constructor() {
     super();
     this.state = {
       countries: [],
       countryDetail: [],
-      countryName: "",
+      countrySearch: false,
+      isOpen: false,
       errorMsg: "",
-      searchBtn: true,
     };
 
     this.handleRegion = this.handleRegion.bind(this);
-    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
-  }
-
-  // HELPER
-  searchBtn(e) {
-    // console.log("wHAT IS THIS", e);
-    this.setState({
-      searchBtn: false,
-    });
   }
 
   /// ...
 
   /// MY HANDLERS WITH CARE
 
-  handleSearchChange(e) {
-    console.log("MADE MAN", e.target.value);
-    this.setState({
-      countryName: e.target.value,
-    });
-  }
-
-  handleSearchSubmit(e) {
-    axios
-      .get(`https://restcountries.com/v2/name/${this.state.countryName}`)
-      .then((res) =>
-        res.data.map((detail) => {
+  async handleSearchChange(e) {
+    //if target value is when data is triggered
+    if (e.target.value.length >= 2) {
+      await axios
+        .get(`https://restcountries.com/v2/name/${e.target.value}`)
+        .then((res) =>
+          res.data.map((item) => {
+            return this.setState({
+              countryDetail: item,
+              countrySearch: true,
+            });
+          })
+        )
+        .catch((error) =>
           this.setState({
-            countryDetail: detail,
-          });
-        })
-      )
-      .catch((error) =>
-        this.setState({
-          errorMsg: error.response.data.message,
-        })
-      );
-
-    e.preventDefault();
+            errorMsg: `${error}`,
+          })
+        );
+    } else {
+      // console.log("PLACING THINGS BACK");
+      this.setState({
+        countryDetail: [],
+        countrySearch: false,
+      });
+    }
   }
 
   handleRegion(region) {
@@ -104,29 +98,68 @@ class App extends Component {
 
   render() {
     return (
-      <div className='container'>
+      <div className='container dark:text-white'>
         <SearchBar
           handleChange={(countryName) => this.handleSearchChange(countryName)}
           handleSubmit={(e) => this.handleSearchSubmit(e)}
-          searchBtn={(e) => this.searchBtn(e)}
         />
-        <div className='relative border shadow-xl bg-gray-50 w-1/2 p-4'>
-          <h1 className='text-sm'>Filter by Region</h1>
-          <ul className='absolute top-20 left-0 bg-gray-50 w-full mt-2 invisible md:visible'>
-            <li onClick={() => this.handleRegion("World")}>Worldwide</li>
-            <li onClick={() => this.handleRegion("Africa")}>Africa</li>
-            <li onClick={() => this.handleRegion("Americas")}>Americas</li>
-            <li onClick={() => this.handleRegion("Asia")}>Asia</li>
-            <li onClick={() => this.handleRegion("Europe")}>Europe</li>
-            <li onClick={() => this.handleRegion("Oceania")}>Oceania</li>
-            <li onClick={() => this.handleRegion("Polar")}>Polar</li>
-          </ul>
+        <div className='relative shadow-xl dark:bg-wordsNight  w-1/2 p-4'>
+          <button
+            className='flex rounded hover:dark:bg-night'
+            onClick={() => this.setState({ isOpen: true })}>
+            <h1 className='text-sm mx-4'>Filter by Region</h1>
+            <FontAwesomeIcon icon={faChevronDown} />
+          </button>
+          <button
+            className='fixed h-full w-full cursor-default'
+            onClick={() => this.setState({ isOpen: false })}></button>
+          {this.state.isOpen ? (
+            <ul className='absolute bg-gray-100 rounded top-20 left-0 dark:bg-wordsNight p-3 w-full mt-2'>
+              <li
+                onClick={() => this.handleRegion("World")}
+                className='hover:bg-gray-400 hover:text-white cursor-pointer'>
+                Worldwide
+              </li>
+              <li
+                onClick={() => this.handleRegion("Africa")}
+                className='hover:bg-gray-400 cursor-pointer'>
+                Africa
+              </li>
+              <li
+                onClick={() => this.handleRegion("Americas")}
+                className='hover:bg-gray-400 cursor-pointer'>
+                Americas
+              </li>
+              <li
+                onClick={() => this.handleRegion("Asia")}
+                className='hover:bg-gray-400 cursor-pointer'>
+                Asia
+              </li>
+              <li
+                onClick={() => this.handleRegion("Europe")}
+                className='hover:bg-gray-400 cursor-pointer'>
+                Europe
+              </li>
+              <li
+                onClick={() => this.handleRegion("Oceania")}
+                className='hover:bg-gray-400 cursor-pointer'>
+                Oceania
+              </li>
+              <li
+                onClick={() => this.handleRegion("Polar")}
+                className='hover:bg-gray-400 cursor-pointer'>
+                Polar
+              </li>
+            </ul>
+          ) : null}
         </div>
         <div>
-          {this.state.searchBtn !== true ? (
-            <CountryDetail countryDetail={this.state.countryDetail} />
-          ) : (
+          {this.state.countrySearch !== true ? (
             this.eachCountry()
+          ) : (
+            <div className='container h-screen'>
+              <CountryDetail countryDetail={this.state.countryDetail} />
+            </div>
           )}
         </div>
       </div>
