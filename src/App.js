@@ -99,59 +99,61 @@ class App extends Component {
   render() {
     return (
       <div className='container dark:text-white'>
-        <SearchBar
-          handleChange={(countryName) => this.handleSearchChange(countryName)}
-          handleSubmit={(e) => this.handleSearchSubmit(e)}
-        />
-        <div className='relative shadow-xl dark:bg-wordsNight  w-1/2 p-4'>
-          <button
-            className='flex rounded hover:dark:bg-night'
-            onClick={() => this.setState({ isOpen: true })}>
-            <h1 className='text-sm mx-4'>Filter by Region</h1>
-            <FontAwesomeIcon icon={faChevronDown} />
-          </button>
-          <button
-            className='fixed h-full w-full cursor-default'
-            onClick={() => this.setState({ isOpen: false })}></button>
-          {this.state.isOpen ? (
-            <ul className='absolute bg-gray-100 rounded top-20 left-0 dark:bg-wordsNight p-3 w-full mt-2'>
-              <li
-                onClick={() => this.handleRegion("World")}
-                className='hover:bg-gray-400 hover:text-white cursor-pointer'>
-                Worldwide
-              </li>
-              <li
-                onClick={() => this.handleRegion("Africa")}
-                className='hover:bg-gray-400 cursor-pointer'>
-                Africa
-              </li>
-              <li
-                onClick={() => this.handleRegion("Americas")}
-                className='hover:bg-gray-400 cursor-pointer'>
-                Americas
-              </li>
-              <li
-                onClick={() => this.handleRegion("Asia")}
-                className='hover:bg-gray-400 cursor-pointer'>
-                Asia
-              </li>
-              <li
-                onClick={() => this.handleRegion("Europe")}
-                className='hover:bg-gray-400 cursor-pointer'>
-                Europe
-              </li>
-              <li
-                onClick={() => this.handleRegion("Oceania")}
-                className='hover:bg-gray-400 cursor-pointer'>
-                Oceania
-              </li>
-              <li
-                onClick={() => this.handleRegion("Polar")}
-                className='hover:bg-gray-400 cursor-pointer'>
-                Polar
-              </li>
-            </ul>
-          ) : null}
+        <div className='button-wrapper md:flex pt-3'>
+          <SearchBar
+            handleChange={(countryName) => this.handleSearchChange(countryName)}
+            handleSubmit={(e) => this.handleSearchSubmit(e)}
+          />
+          <div className='relative shadow-xl dark:bg-wordsNight  w-1/2 p-4  md:my-auto md:h-1/2'>
+            <button
+              className='flex rounded hover:dark:bg-night'
+              onClick={() => this.setState({ isOpen: true })}>
+              <h1 className='text-sm mx-4'>Filter by Region</h1>
+              <FontAwesomeIcon icon={faChevronDown} />
+            </button>
+            <button
+              className='fixed h-full w-full cursor-default'
+              onClick={() => this.setState({ isOpen: false })}></button>
+            {this.state.isOpen ? (
+              <ul className='absolute bg-gray-100 rounded top-20 left-0 dark:bg-wordsNight p-3 w-full mt-2'>
+                <li
+                  onClick={() => this.handleRegion("World")}
+                  className='hover:bg-gray-400 hover:text-white cursor-pointer'>
+                  Worldwide
+                </li>
+                <li
+                  onClick={() => this.handleRegion("Africa")}
+                  className='hover:bg-gray-400 cursor-pointer'>
+                  Africa
+                </li>
+                <li
+                  onClick={() => this.handleRegion("Americas")}
+                  className='hover:bg-gray-400 cursor-pointer'>
+                  Americas
+                </li>
+                <li
+                  onClick={() => this.handleRegion("Asia")}
+                  className='hover:bg-gray-400 cursor-pointer'>
+                  Asia
+                </li>
+                <li
+                  onClick={() => this.handleRegion("Europe")}
+                  className='hover:bg-gray-400 cursor-pointer'>
+                  Europe
+                </li>
+                <li
+                  onClick={() => this.handleRegion("Oceania")}
+                  className='hover:bg-gray-400 cursor-pointer'>
+                  Oceania
+                </li>
+                <li
+                  onClick={() => this.handleRegion("Polar")}
+                  className='hover:bg-gray-400 cursor-pointer'>
+                  Polar
+                </li>
+              </ul>
+            ) : null}
+          </div>
         </div>
         <div className='bundle mt-10'>
           {this.state.countrySearch !== true ? (
