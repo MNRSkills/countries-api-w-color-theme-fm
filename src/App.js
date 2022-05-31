@@ -153,9 +153,11 @@ class App extends Component {
             </ul>
           ) : null}
         </div>
-        <div>
+        <div className='bundle mt-10'>
           {this.state.countrySearch !== true ? (
-            this.eachCountry()
+            <div className='mapper md:container md:grid md:grid-cols-4 md:gap-4'>
+              {this.eachCountry()}
+            </div>
           ) : (
             <div className='container h-screen'>
               <CountryDetail countryDetail={this.state.countryDetail} />

@@ -6,12 +6,12 @@ const Countries = (props) => {
   const { name, population, region, capital, flag } = props.country;
 
   return (
-    <div className='p-10'>
+    <div className=''>
       <div className='grid grid-rows-2 shadow-xl border rounde-xl'>
         <div className='w-full'>
           <img src={flag} alt='flag goes here no dissrespect' />
         </div>
-        <div className='p-5 dark:text-white m-auto font-display'>
+        <div className='p-5 dark:text-white font-display'>
           <h1 className='font-bold text-xl'>{name}</h1>
           <ul className='py-2'>
             <li>
